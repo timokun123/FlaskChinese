@@ -9,6 +9,13 @@ from flask.ext.wtf import Form
 from wtforms import StringField, SubmitField
 from wtforms.validators import DataRequired
 
+#解决编码问题
+import sys
+default_encodeing = 'gbk'
+if sys.getdefaultencoding != 'utf-8':
+    reload(sys)
+    sys.setdefaultencoding('utf-8')
+
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'hard to guess string'
 
