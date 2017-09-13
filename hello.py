@@ -21,7 +21,7 @@ class NameForm(Form):
     submit = SubmitField('提交')
 
 
-@app.route('/', methods = ['GET', 'POST'])
+@app.route('/', methods=['GET', 'POST'])
 def index():
     name = None
     form = NameForm()
