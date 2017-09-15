@@ -11,6 +11,8 @@ from wtforms import StringField, SubmitField
 from wtforms.validators import DataRequired
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.script import Shell
+from flask.ext.migrate import Migrate, MigrateCommand
+
 
 #解决编码问题
 import sys
@@ -34,10 +36,16 @@ manager = Manager(app)
 bootstrap = Bootstrap(app)
 moment = Moment(app)
 db = SQLAlchemy(app)
+migrate = Migrate(app, db)
+
 
 def make_shell_context():
     return dict(app=app, db=db, User=User, Role=Role)
+
+manager.add_command('db', MigrateCommand)
 manager.add_command("shell", Shell(make_context=make_shell_context))
+
+
 
 class NameForm(Form):
     name = StringField('请输入您的姓名：', validators=[DataRequired()])
